@@ -2,12 +2,12 @@
 
 #SBATCH -A MED106_crusher
 #SBATCH -N 12
-#SBATCH -t 03:10:00
-#SBATCH -J GPT_neox
+#SBATCH -t 04:00:00
+#SBATCH -J RB_ft_26k
 #SBATCH -o %x-%j.out
 #SBATCH -p batch
 #SBATCH --mail-user hsyoo@anl.gov
-#SBATCH --mail-type END
+#SBATCH --mail-type END,FAIL
 
 set +x
 module load rocm/4.5.2 gcc/11.2.0
@@ -27,4 +27,4 @@ srun hostname > hostfile.txt
 sed -i 's/$/ slots=8/' hostfile.txt
 
 # train
-python deepy.py train.py -d configs 20B.yml
+python deepy.py train.py -d configs RB_ft_26k.yml
